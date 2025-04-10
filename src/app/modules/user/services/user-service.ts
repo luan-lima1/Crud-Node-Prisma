@@ -1,3 +1,4 @@
+import { ServiceError } from '../../../../config/error';
 import logger from '../../../../config/logger';
 import {
   IUserRepository,
@@ -32,8 +33,8 @@ export default class UserService implements IUserService {
       return response;
     } catch (error) {
       const errorMsg = 'Ocorreu um erro!';
-      logger.info('[UserService]::: Erro ao cadastrar teste');
-      throw new Error(errorMsg);
+      logger.error(errorMsg);
+      throw new ServiceError(errorMsg);
     }
   }
 }
