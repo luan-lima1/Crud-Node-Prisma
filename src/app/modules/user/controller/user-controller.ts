@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { IUserController, IUserService } from '../interfaces/user-interface';
 import logger from '../../../../config/logger';
+import { ServiceError } from '../../../../config/error';
 
 export default class UserController implements IUserController {
   private userService: IUserService;
@@ -27,8 +28,8 @@ export default class UserController implements IUserController {
       return next();
     } catch (error: any) {
       if (error.isAxiosError) {
-        const errorMessage = 'Ocorreu um erro ao tentar cadastrar Usuário.';
-        return next(new Error(errorMessage));
+        const errorMsg = 'Ocorreu um erro ao tentar cadastrar Usuário.';
+        return next(new ServiceError(errorMsg));
       }
       next(error);
     }
