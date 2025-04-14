@@ -15,7 +15,7 @@ export default class UserService implements IUserService {
   }
 
   async execute(data: IUserServiceRequest): Promise<IUserResponse | void> {
-    logger.info('[UserService]::: Cadastrando Usuário');
+    logger.info('[UserService]::: Recebendo dados');
 
     try {
       const emailExists = await this.userRepository.findOneUserByEmail(
@@ -23,7 +23,7 @@ export default class UserService implements IUserService {
       );
 
       if (emailExists) {
-        throw new Error('Email cadastrado');
+        throw new ServiceError('Email já cadastrado!');
       }
 
       const response = await this.userRepository.create({
