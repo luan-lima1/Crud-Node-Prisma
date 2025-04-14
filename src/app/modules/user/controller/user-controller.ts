@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { IUserController, IUserService } from '../interfaces/user-interface';
 import logger from '../../../../config/logger';
 import { ServiceError } from '../../../../config/error';
+import { StatusCodes } from '../../../../enums/status-code';
 
 export default class UserController implements IUserController {
   private userService: IUserService;
@@ -24,7 +25,7 @@ export default class UserController implements IUserController {
         senha,
       });
 
-      response.status(200).json(user);
+      response.status(StatusCodes.CREATED).json(user);
       return next();
     } catch (error: any) {
       if (error.isAxiosError) {
